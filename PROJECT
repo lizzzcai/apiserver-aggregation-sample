@@ -1,0 +1,4 @@
+
+version: "1"
+domain: zoo.com
+repo: apiserver-aggregation-sample
