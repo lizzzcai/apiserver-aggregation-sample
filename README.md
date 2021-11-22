@@ -1,2 +1,2 @@
-# apiserver-sample
-Kubernetes APIServer Sample
+# apiserver-aggregation-sample
+Kubernetes APIServer Aggregation Sample
