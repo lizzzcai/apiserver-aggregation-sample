@@ -15,22 +15,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+package v1alpha1
 
 import (
-	"k8s.io/klog"
-	"sigs.k8s.io/apiserver-runtime/pkg/builder"
-
-	// +kubebuilder:scaffold:resource-imports
-animalv1alpha1 "apiserver-aggregation-sample/pkg/apis/animal/v1alpha1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-func main() {
-	err := builder.APIServer.
-		// +kubebuilder:scaffold:resource-register
-WithResource(&animalv1alpha1.Cat{}).
-		Execute()
-	if err != nil {
-		klog.Fatal(err)
-	}
+
+var AddToScheme = func(scheme *runtime.Scheme) error {
+	metav1.AddToGroupVersion(scheme, schema.GroupVersion{
+		Group:   "animal.zoo.com",
+		Version: "v1alpha1",
+	})
+	// +kubebuilder:scaffold:install
+
+	scheme.AddKnownTypes(schema.GroupVersion{
+		Group:   "animal.zoo.com",
+		Version: "v1alpha1",
+	}, &Cat{}, &CatList{})
+	return nil
 }
